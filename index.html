@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediScribe AI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <h1>MediScribe AI</h1>
+      <p>Record, transcribe, categorize, and store patient notes locally.</p>
+    </header>
+
+    <main>
+      <section id="user-section" class="card">
+        <h2>User Login</h2>
+        <form id="user-form">
+          <label for="user-name">Name</label>
+          <input id="user-name" name="name" type="text" placeholder="Enter your name" required />
+
+          <label for="user-id">User ID</label>
+          <div class="inline-row">
+            <input id="user-id" name="userId" type="text" placeholder="Enter your ID or create new" required />
+            <button id="generate-id" type="button">Create new ID</button>
+          </div>
+
+          <div class="radio-group">
+            <label><input type="radio" name="mode" value="existing" checked /> Existing user</label>
+            <label><input type="radio" name="mode" value="new" /> New user</label>
+          </div>
+
+          <button id="login-button" type="submit">Continue</button>
+        </form>
+        <div id="user-message" class="info"></div>
+      </section>
+
+      <section id="app-section" class="hidden">
+        <div class="top-row">
+          <div>
+            <p><strong>Current user:</strong> <span id="current-user-name"></span></p>
+            <p><strong>User ID:</strong> <span id="current-user-id"></span></p>
+          </div>
+          <div class="top-row-right">
+            <div class="status-pill" id="sync-status">Offline local</div>
+            <button id="signout-button" type="button" class="secondary">Sign out</button>
+          </div>
+        </div>
+
+        <div class="card controls-card">
+          <h2>Speech Recording</h2>
+          <p id="speech-status">Ready to record.</p>
+          <div class="button-row">
+            <button id="record-button" type="button">Start Recording</button>
+            <button id="stop-button" type="button" disabled>Stop Recording</button>
+            <button id="confirm-button" type="button" disabled>Confirm Save</button>
+            <button id="cancel-button" type="button" disabled>Cancel</button>
+            <button id="sync-button" type="button" class="secondary">Sync to Excel</button>
+            <button id="export-users-button" type="button" class="secondary">Export Users</button>
+            <button id="export-notes-button" type="button" class="secondary">Export Consultations</button>
+          </div>
+          <p class="hint">Use your browser microphone. Speech recognition works best in Chrome/Edge.</p>
+        </div>
+
+        <section class="card summary-card">
+          <h2>Latest Transcription Summary</h2>
+          <div id="summary-output" class="summary-output">
+            <p>No transcription yet.</p>
+          </div>
+          <textarea id="pending-textarea" class="pending-textarea hidden" rows="4" placeholder="Edit the pending transcription before saving..."></textarea>
+          <div id="pending-categories" class="pending-categories hidden"></div>
+        </section>
+
+        <section class="card categories-card">
+          <h2>Categorized Notes</h2>
+          <div class="category-grid">
+            <div class="category-panel"><h3>Family History</h3><div id="category-family"></div></div>
+            <div class="category-panel"><h3>Allergies</h3><div id="category-allergies"></div></div>
+            <div class="category-panel"><h3>Timeframe</h3><div id="category-timeframe"></div></div>
+            <div class="category-panel"><h3>Main Complaints</h3><div id="category-complaints"></div></div>
+            <div class="category-panel full-width"><h3>Other Keynotes</h3><div id="category-other"></div></div>
+          </div>
+        </section>
+
+        <section class="card history-card">
+          <h2>Transcript History</h2>
+          <div id="history-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
